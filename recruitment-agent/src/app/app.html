@@ -1,12 +1,4 @@
-<header style="background-color: #1976d2; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;">
-    <h1 style="margin: 0; font-weight: 700; font-size: 1.5rem;">{{ title }}</h1>
-    <nav>
-      <button routerLink="/login" style="background: white; color: #1976d2; border: none; padding: 0.5rem 1rem; margin-right: 1rem; border-radius: 4px; cursor: pointer; font-weight: 600;">Login</button>
-      <button routerLink="/dashboard" style="background: white; color: #1976d2; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: 600;">Dashboard</button>
-    </nav>
-  </header>
-  
-  <main style="padding: 2rem; max-width: 400px; margin: 3rem auto; background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-    <router-outlet></router-outlet>
-  </main>
-  
+<app-navbar></app-navbar>
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>

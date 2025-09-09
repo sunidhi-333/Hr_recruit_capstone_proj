@@ -1,9 +1,9 @@
-<div>
-    <h1>Dashboard</h1>
-    <button (click)="logout()">Logout</button>
-    <nav>
-      <a routerLink="/job-posting/new">Create Job Posting</a>
-    </nav>
+<h1>Welcome to the Dashboard</h1>
+<p>Manage job postings, check candidate recommendations, and scan resumes.</p>
 
+<div class="cards">
+  <div class="card" *ngFor="let stat of stats">
+    <h2>{{ stat.count }}</h2>
+    <p>{{ stat.label }}</p>
   </div>
-  
+</div>

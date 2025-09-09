@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth/auth';
 
 @Component({
   selector: 'app-dashboard',
-  // imports are not needed here
+  standalone: true,
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss'
+  styleUrls: ['./dashboard.scss']
 })
-export class Dashboard {
-
-  constructor(private authService: AuthService) {}
-
-  logout(): void {
-    this.authService.logout();
-  }
+export class DashboardComponent {
+  stats = [
+    { count: 2, label: 'Job Descriptions Created' },
+    { count: 3, label: 'Resumes Uploaded' },
+    { count: 3, label: 'Candidates Processed' },
+    { count: 1, label: 'Jobcode-wise Resumes' }
+  ];
 }
