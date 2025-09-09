@@ -1,25 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from './schemas/user.schema';
+import { User, UserDocument } from './schemas/user.schema';
 import { LoginDto } from './LoginDto';
 
 @Injectable()
 export class AuthService {
-  registerUser(username: string, password: string) {
-    throw new Error('Method not implemented.');
-  }
-  validateUser(loginDto: LoginDto) {
-    throw new Error('Method not implemented.');
-  }
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async createUser(username: string, password: string) {
+  async registerUser(username: string, password: string) {
+    // Check if user already exists
+    const existingUser = await this.userModel.findOne({ username });
+    if (existingUser) {
+      throw new ConflictException('Username already exists');
+    }
     const newUser = new this.userModel({ username, password });
-    return await newUser.save();
+    return newUser.save();
   }
 
-  async findUserByUsername(username: string) {
-    return this.userModel.findOne({ username });
+  async validateUser(loginDto: LoginDto) {
+    const { username, password } = loginDto;
+    const user = await this.userModel.findOne({ username });
+    if (!user || user.password !== password) {
+      throw new UnauthorizedException('Invalid username or password');
+    }
+    // You can return user info or JWT token here
+    return { message: 'Login successful', userId: user._id, username: user.username };
   }
 }

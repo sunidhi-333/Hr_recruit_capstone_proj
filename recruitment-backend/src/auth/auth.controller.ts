@@ -11,6 +11,7 @@ export class AuthController {
     console.log('Received loginDto:', loginDto);
     return this.authService.validateUser(loginDto);
   }
+
   @Post('register')
   async register(@Body() body: { username: string; password: string }) {
     const { username, password } = body;
